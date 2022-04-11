@@ -11,7 +11,7 @@ export const getFileChunk = (file, chunkSize = DefaultChunkSize) => {
     spark = new SparkMD5.ArrayBuffer(), // 根据文件内容计算出文件的hash值
     // FileReader 对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，
     // 使用 File 或 Blob 对象指定要读取的文件或数据。
-    fileReader = new FileReader() 
+    fileReader = new FileReader() // 问题，fileReader 性能问题，读的太慢了
 
     // 做一个闭包保持持续作用域
     fileReader.onload = (e) => {

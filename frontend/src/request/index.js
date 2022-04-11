@@ -3,12 +3,14 @@ import { getFileChunk, DefaultChunkSize } from './chunk'
 import { fileChunkList } from './file'
 import axios from 'axios'
 
+const deliver = '.-.'
+
 export const upload = (file, updateProcess) => {
   console.log('onUploadProgress', updateProcess)
   getFileChunk(file).then(fileHash => {
     const requests = fileChunkList.value.map((item, index) => {
       const formData = new FormData()
-      formData.append(`${file.name}-${fileHash}-${index}`, item.chunk)
+      formData.append(`${file.name}${deliver}${fileHash}${deliver}${index}`, item.chunk)
       formData.append('hash', fileHash + '-' + index)
       formData.append('fileHash', fileHash)
       return uploadFile('/upload', formData, updateProcess(item))

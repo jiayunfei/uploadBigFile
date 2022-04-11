@@ -3,7 +3,6 @@ import axios from 'axios'
 const baseURL = 'http://localhost:3001'
 
 export const uploadFile = (url, formData, onUploadProgress = () => {}) => {
-  console.log('onUploadProgress', onUploadProgress)
   return axios({
     method: 'post',
     url,

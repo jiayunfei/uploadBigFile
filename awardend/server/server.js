@@ -18,6 +18,10 @@ router.get('/user', async ctx => {
   }
 })
 
+if (!fs.existsSync(outputPath)) {
+  fs.mkdirSync(outputPath)
+}
+
 // 接收分块
 router.post('/upload', // 处理文件 formData 数据
   koaBody({
@@ -25,7 +29,7 @@ router.post('/upload', // 处理文件 formData 数据
     formidable: {
       uploadDir: outputPath,
       onFileBegin: (name, file) => {
-        const [filename, fileHash, index] = name.split('-')
+        const [filename, fileHash, index] = name.split('.-.')
         const dir = path.join(outputPath, filename)
         // 保存当前chunk信息，发生错误时候返回
         currChunk = {

@@ -1,7 +1,7 @@
 <template>
   <input type="file" @change="fileChange">
   <button @click="uploadFile">上传</button>
-  <div>进度: {{totoalPercentage}}</div>
+  <div>进度: {{totoalPercentage}}%</div>
   <button @click="getUser">getuser</button>
 </template>
 
@@ -25,8 +25,8 @@ export default {
       if (!chunkList.value.length) {
         return 0
       }
-      const loaded = chunkList.value.map(item => item.size * item.percentage)
-      .reduce((curr, next) => Number(curr) + Number(next))
+      const loaded = chunkList.value.map(item => (item.size | 0) * (item.percentage | 0))
+      .reduce((curr, next) =>curr + next)
       return parseInt(loaded / file.size).toFixed(2)
     })
 
